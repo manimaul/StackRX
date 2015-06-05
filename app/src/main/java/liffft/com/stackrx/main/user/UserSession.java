@@ -1,6 +1,7 @@
 package liffft.com.stackrx.main.user;
 
-import com.google.inject.Singleton;
+
+import javax.inject.Singleton;
 
 import liffft.com.stackrx.services.questions.model.Item;
 import liffft.com.stackrx.services.questions.model.Questions;

@@ -1,16 +1,16 @@
 package liffft.com.stackrx.main.widget;
 
+import android.app.ActionBar;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,22 +21,23 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.google.inject.Inject;
 import com.squareup.otto.Subscribe;
 
+import javax.inject.Inject;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import liffft.com.stackrx.R;
 import liffft.com.stackrx.main.application.AppConstants;
 import liffft.com.stackrx.main.event.NavigationEvent;
 import liffft.com.stackrx.questions.fragment.QuestionsFragment;
-import roboguice.fragment.RoboFragment;
-import roboguice.inject.InjectView;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
  * See the <a href="https://developer.android.com/design/patterns/navigation-drawer.html#Interaction">
  * design guidelines</a> for a complete explanation of the behaviors implemented here.
  */
-public class NavigationDrawerFragment extends RoboFragment {
+public class NavigationDrawerFragment extends Fragment {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
 
@@ -48,7 +49,7 @@ public class NavigationDrawerFragment extends RoboFragment {
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @InjectView(R.id.fragment_navigation_drawer_list_view)
-    private ListView mDrawerListView;
+    ListView mDrawerListView;
     //endregion
 
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
@@ -102,7 +103,9 @@ public class NavigationDrawerFragment extends RoboFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        View view = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -121,8 +124,9 @@ public class NavigationDrawerFragment extends RoboFragment {
                 //selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<String>(
-                getActionBar().getThemedContext(),
+
+        mDrawerListView.setAdapter(new ArrayAdapter<>(
+                getActivity(),
                 android.R.layout.simple_list_item_activated_1,
                 android.R.id.text1,
                 new String[]{
@@ -184,8 +188,11 @@ public class NavigationDrawerFragment extends RoboFragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @NonNull
     private ActionBar getActionBar() {
-        return ((ActionBarActivity) getActivity()).getSupportActionBar();
+        ActionBar actionBar = getActivity().getActionBar();
+        assert actionBar != null;
+        return actionBar;
     }
 
     //endregion

@@ -1,10 +1,11 @@
 package liffft.com.stackrx.services.base;
 
-import com.google.inject.Inject;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+
+import javax.inject.Inject;
 
 /**
  * Parameters containing endpoint, header, and query parameters for a service.

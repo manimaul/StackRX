@@ -9,15 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.google.inject.Inject;
 
+import javax.inject.Inject;
+
+import butterknife.InjectView;
 import liffft.com.stackrx.R;
 import liffft.com.stackrx.main.fragment.StackRXBaseFragmemt;
 import liffft.com.stackrx.main.user.UserSession;
 import liffft.com.stackrx.questions.adapter.QuestionRecyclerViewAdapter;
 import liffft.com.stackrx.services.questions.dao.QuestionsDAO;
 import liffft.com.stackrx.services.questions.model.Questions;
-import roboguice.inject.InjectView;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
@@ -33,7 +34,7 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
-    @InjectView (R.id.question_fragment_question_recycler_view)
+    @InjectView(R.id.question_fragment_question_recycler_view)
     RecyclerView mRecyclerView;
 
     //endregion

@@ -15,7 +15,6 @@ import liffft.com.stackrx.R;
 import liffft.com.stackrx.main.application.AppConstants;
 import liffft.com.stackrx.main.event.NavigationEvent;
 import liffft.com.stackrx.services.questions.model.Item;
-import roboguice.RoboGuice;
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -37,7 +36,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
     public QuestionRecyclerViewAdapter(Context context) {
-        RoboGuice.injectMembers(context, this);
         mContext = context;
     }
     //endregion

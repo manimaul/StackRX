@@ -1,6 +1,7 @@
 package liffft.com.stackrx.services.base;
 
-import com.google.inject.Singleton;
+
+import javax.inject.Singleton;
 
 /**
  * Created by pair on 4/6/15.

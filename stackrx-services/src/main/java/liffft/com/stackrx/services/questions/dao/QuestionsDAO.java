@@ -1,6 +1,7 @@
 package liffft.com.stackrx.services.questions.dao;
 
-import com.google.inject.Inject;
+
+import javax.inject.Inject;
 
 import liffft.com.stackrx.services.base.BaseService;
 import liffft.com.stackrx.services.base.ServiceEnvironment;

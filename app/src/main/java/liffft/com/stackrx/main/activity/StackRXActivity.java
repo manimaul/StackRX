@@ -3,18 +3,17 @@ package liffft.com.stackrx.main.activity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import liffft.com.stackrx.R;
 import liffft.com.stackrx.main.util.BusProvider;
 import liffft.com.stackrx.main.widget.NavigationDrawerFragment;
-import roboguice.activity.RoboActionBarActivity;
-import roboguice.inject.ContentView;
-import roboguice.inject.InjectView;
 
-@ContentView(R.layout.stack_rx_activity)
-public class StackRXActivity extends RoboActionBarActivity {
+public class StackRXActivity extends AppCompatActivity {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     /**
@@ -27,7 +26,7 @@ public class StackRXActivity extends RoboActionBarActivity {
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @InjectView(R.id.drawer_layout)
-    private DrawerLayout mDrawerLayout;
+    DrawerLayout mDrawerLayout;
     //endregion
 
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
@@ -51,6 +50,8 @@ public class StackRXActivity extends RoboActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.stack_rx_activity);
+        ButterKnife.inject(this);
         mTitle = getTitle();
         BusProvider.getInstance().register(this);
     }

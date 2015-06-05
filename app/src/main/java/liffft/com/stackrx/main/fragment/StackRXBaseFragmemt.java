@@ -1,12 +1,13 @@
 package liffft.com.stackrx.main.fragment;
 
-import roboguice.fragment.RoboFragment;
+import android.support.v4.app.Fragment;
+
 import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by graemeharnish on 5/25/15.
  */
-public class StackRXBaseFragmemt extends RoboFragment {
+public class StackRXBaseFragmemt extends Fragment {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
