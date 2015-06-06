@@ -11,18 +11,19 @@ public class Owner {
 
     @Expose
     private Integer reputation;
-    @SerializedName("user_id")
+
     @Expose
     private Integer userId;
-    @SerializedName("user_type")
+    
     @Expose
     private String userType;
-    @SerializedName("profile_image")
+
     @Expose
     private String profileImage;
-    @SerializedName("display_name")
+
     @Expose
     private String displayName;
+
     @Expose
     private String link;
 

@@ -13,14 +13,14 @@ import javax.annotation.Generated;
 public class Questions {
 
     @Expose
-    private List<Item> items = new ArrayList<Item>();
-    @SerializedName("has_more")
+    private List<Item> items;
+
     @Expose
     private Boolean hasMore;
-    @SerializedName("quota_max")
+
     @Expose
     private Integer quotaMax;
-    @SerializedName("quota_remaining")
+
     @Expose
     private Integer quotaRemaining;
 

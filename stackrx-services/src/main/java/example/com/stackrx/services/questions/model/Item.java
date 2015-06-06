@@ -13,55 +13,59 @@ import javax.annotation.Generated;
 public class Item {
 
     @Expose
-    private List<String> tags = new ArrayList<String>();
+    private List<String> tags;
+
     @Expose
     private Owner owner;
-    @SerializedName("is_answered")
+
     @Expose
     private Boolean isAnswered;
-    @SerializedName("view_count")
+
     @Expose
     private Integer viewCount;
-    @SerializedName("answer_count")
+
     @Expose
     private Integer answerCount;
+
     @Expose
     private Integer score;
-    @SerializedName("last_activity_date")
+
     @Expose
     private Integer lastActivityDate;
-    @SerializedName("creation_date")
+
     @Expose
     private Integer creationDate;
-    @SerializedName("last_edit_date")
+
     @Expose
     private Integer lastEditDate;
-    @SerializedName("question_id")
+
     @Expose
     private Integer questionId;
+
     @Expose
     private String link;
+
     @Expose
     private String title;
-    @SerializedName("accepted_answer_id")
+
     @Expose
     private Integer acceptedAnswerId;
-    @SerializedName("bounty_amount")
+
     @Expose
     private Integer bountyAmount;
-    @SerializedName("bounty_closes_date")
+
     @Expose
     private Integer bountyClosesDate;
-    @SerializedName("closed_date")
+
     @Expose
     private Integer closedDate;
-    @SerializedName("closed_reason")
+
     @Expose
     private String closedReason;
-    @SerializedName("protected_date")
+
     @Expose
     private Integer protectedDate;
-    @SerializedName("community_owned_date")
+
     @Expose
     private Integer communityOwnedDate;
 
