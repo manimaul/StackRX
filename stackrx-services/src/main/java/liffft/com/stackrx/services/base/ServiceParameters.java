@@ -5,12 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import javax.inject.Inject;
-
-/**
- * Parameters containing endpoint, header, and query parameters for a service.
- */
-
 public class ServiceParameters {
     private String url = "";
     private String endpoint = "";
@@ -20,7 +14,6 @@ public class ServiceParameters {
 
     public boolean ignoreCerts = false;
 
-    @Inject
     public ServiceParameters(String url, String endpoint) {
         this.url = url;
         this.endpoint = endpoint;

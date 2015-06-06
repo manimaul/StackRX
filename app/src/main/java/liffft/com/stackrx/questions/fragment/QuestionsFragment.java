@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import liffft.com.stackrx.R;
+import liffft.com.stackrx.main.application.StackRXApp;
 import liffft.com.stackrx.main.fragment.StackRXBaseFragmemt;
 import liffft.com.stackrx.main.user.UserSession;
 import liffft.com.stackrx.questions.adapter.QuestionRecyclerViewAdapter;
@@ -23,32 +25,38 @@ import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
 public class QuestionsFragment extends StackRXBaseFragmemt {
+
+
     //region INJECTED CLASSES ----------------------------------------------------------------------
 
     @Inject
-    QuestionsDAO mQuestionsDAO;
+    QuestionsDAO _questionsDAO;
 
     @Inject
-    UserSession mUserSession;
+    UserSession _userSession;
+
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @InjectView(R.id.question_fragment_question_recycler_view)
-    RecyclerView mRecyclerView;
+    RecyclerView _recyclerView;
 
     //endregion
+
 
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
-
-    private Activity mActivity;
     //endregion
 
-    //region CLASS VARIABLES -----------------------------------------------------------------------
 
-    private QuestionRecyclerViewAdapter mQuestionRecyclerViewAdapter;
+    //region FIELDS --------------------------------------------------------------------------------
 
-    private GetQuestionSubscriber mGetQuestionSubscriber;
+    private Activity _activity;
+
+    private QuestionRecyclerViewAdapter _questionRecyclerViewAdapter;
+
+    private GetQuestionSubscriber _getQuestionSubscriber;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
@@ -60,9 +68,18 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StackRXApp.component().inject(this);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.questions_fragment, container, false);
+        View view = inflater.inflate(R.layout.questions_fragment, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -70,34 +87,41 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
         super.onViewCreated(view, savedInstanceState);
 
         // Setup recycler view
-        mRecyclerView.setHasFixedSize(true);
+        _recyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
+        _recyclerView.setLayoutManager(layoutManager);
 
         // Subscribe and call the observable
-        mGetQuestionSubscriber = new GetQuestionSubscriber();
-        mCompositeSubscription.add(mQuestionsDAO.getQuestions().observeOn(AndroidSchedulers.mainThread()).subscribe(mGetQuestionSubscriber));
+        _getQuestionSubscriber = new GetQuestionSubscriber();
+        _compositeSubscription.add(_questionsDAO.getQuestions()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(_getQuestionSubscriber));
 
-        mQuestionRecyclerViewAdapter = new QuestionRecyclerViewAdapter(getActivity());
-        mRecyclerView.setAdapter(mQuestionRecyclerViewAdapter);
+        _questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter(getActivity());
+        _recyclerView.setAdapter(_questionRecyclerViewAdapter);
 
-        mActivity = getActivity();
+        _activity = getActivity();
     }
 
     //endregion
 
+
     //region WIDGET --------------------------------------------------------------------------------
     //endregion
+
 
     //region LISTENERS -----------------------------------------------------------------------------
     //endregion
 
+
     //region EVENTS --------------------------------------------------------------------------------
     //endregion
 
+
     //region LOCAL METHODS -------------------------------------------------------------------------
     //endregion
+
 
     //region SUBSCRIBERS ---------------------------------------------------------------------------
 
@@ -110,23 +134,27 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
         @Override
         public void onError(Throwable e) {
-            Toast.makeText(mActivity, mActivity.getString(R.string.service_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(_activity, _activity.getString(R.string.service_error), Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onNext(Questions questions) {
-            mUserSession.setQuestions(questions);
-            mQuestionRecyclerViewAdapter.setItemList(questions.getItems());
-            mQuestionRecyclerViewAdapter.notifyDataSetChanged();
+            _userSession.setQuestions(questions);
+            _questionRecyclerViewAdapter.setItemList(questions.getItems());
+            _questionRecyclerViewAdapter.notifyDataSetChanged();
         }
     }
+
     //endregion
+
 
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
+
     //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
+
 
     //region CLASS METHODS -------------------------------------------------------------------------
     //endregion

@@ -1,8 +1,6 @@
 package liffft.com.stackrx.services.questions.dao;
 
 
-import javax.inject.Inject;
-
 import liffft.com.stackrx.services.base.BaseService;
 import liffft.com.stackrx.services.base.ServiceEnvironment;
 import liffft.com.stackrx.services.questions.model.Questions;
@@ -18,7 +16,6 @@ public class QuestionsDAO extends BaseService<QuestionsService> {
      *
      * @param serviceEnvironment     environment parameters
      */
-    @Inject
     public QuestionsDAO(ServiceEnvironment serviceEnvironment) {
         super(QuestionsService.class, serviceEnvironment.getSecureParameters());
     }

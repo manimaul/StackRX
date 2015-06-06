@@ -27,16 +27,17 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
     //endregion
 
-    //region CLASS VARIABLES -----------------------------------------------------------------------
+    //region FIELDS --------------------------------------------------------------------------------
 
-    private List<Item> mItemList = new ArrayList<>();
-    private Context mContext;
+    private List<Item> _itemList = new ArrayList<>();
+    private Context _context;
+
     //endregion
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
 
     public QuestionRecyclerViewAdapter(Context context) {
-        mContext = context;
+        _context = context;
     }
     //endregion
 
@@ -54,10 +55,10 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder.mQuestionText.setText(mItemList.get(i).getTitle());
-        itemHolder.mViewAnswersButton.setText(String.format(mContext.getString(R.string.item_question_view_answers), mItemList.get(i).getAnswerCount()));
+        itemHolder._questionText.setText(_itemList.get(i).getTitle());
+        itemHolder._viewAnswersButton.setText(String.format(_context.getString(R.string.item_question_view_answers), _itemList.get(i).getAnswerCount()));
 
-        itemHolder.mViewAnswersButton.setOnClickListener(new View.OnClickListener() {
+        itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavigationEvent navigationEvent = new NavigationEvent();
@@ -73,8 +74,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public int getItemCount() {
-        return mItemList.size();
+        return _itemList.size();
     }
+
     //endregion
 
     //region LISTENERS -----------------------------------------------------------------------------
@@ -92,7 +94,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region ACCESSORS -----------------------------------------------------------------------------
 
     public void setItemList(List<Item> itemList) {
-        mItemList = itemList;
+        _itemList = itemList;
     }
     //endregion
 
@@ -100,13 +102,13 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private class ItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView mQuestionText;
-        public Button mViewAnswersButton;
+        public TextView _questionText;
+        public Button _viewAnswersButton;
 
         private ItemHolder(View itemView) {
             super(itemView);
-            mQuestionText = (TextView) itemView.findViewById(R.id.item_question_question_text_view);
-            mViewAnswersButton = (Button) itemView.findViewById(R.id.item_question_view_answers_button);
+            _questionText = (TextView) itemView.findViewById(R.id.item_question_question_text_view);
+            _viewAnswersButton = (Button) itemView.findViewById(R.id.item_question_view_answers_button);
         }
     }
     //endregion

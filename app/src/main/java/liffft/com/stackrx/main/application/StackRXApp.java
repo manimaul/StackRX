@@ -1,56 +1,57 @@
-package liffft.com.stackrx.main.activity;
+package liffft.com.stackrx.main.application;
 
-import android.os.Bundle;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.app.Application;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import liffft.com.stackrx.R;
-import liffft.com.stackrx.questions.fragment.QuestionsFragment;
+import liffft.com.stackrx.dependency.injection.DaggerDeComponent;
+import liffft.com.stackrx.dependency.injection.DeComponent;
+import liffft.com.stackrx.dependency.injection.ServicesModule;
 
-public class StackRXActivity extends AppCompatActivity {
+public class StackRXApp extends Application {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
 
+
     //region INJECTED VIEWS ------------------------------------------------------------------------
+    //endregion
 
-    @InjectView(R.id.drawer_layout)
-    DrawerLayout mDrawerLayout;
 
+    //region LOCAL CONSTANTS -----------------------------------------------------------------------
+    private static StackRXApp app;
     //endregion
 
 
     //region FIELDS --------------------------------------------------------------------------------
+
+    private DeComponent component = null;
+
     //endregion
 
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
-
-    public StackRXActivity() {
-    }
-
     //endregion
 
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.stack_rx_activity);
-        ButterKnife.inject(this);
+    public void onCreate() {
+        super.onCreate();
+        buildComponentAndInject();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    public void buildComponentAndInject() {
+        if (component == null) {
+            app = this;
+            component = DaggerDeComponent.builder()
+                    .servicesModule(new ServicesModule(app))
+                    .build();
+        }
+    }
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new QuestionsFragment())
-                .commit();
+    public static DeComponent component() {
+        return app.component;
     }
 
     //endregion

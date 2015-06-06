@@ -1,12 +1,6 @@
 package liffft.com.stackrx.services.base;
 
 
-import javax.inject.Singleton;
-
-/**
- * Created by pair on 4/6/15.
- */
-@Singleton
 public class ServiceEnvironment {
 
     private static ServiceParameters secureParameters;
