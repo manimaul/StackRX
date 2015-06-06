@@ -1,4 +1,4 @@
-package liffft.com.stackrx.services.questions.dao;
+package example.com.stackrx.services.questions.dao;
 
 import junit.framework.TestCase;
 
