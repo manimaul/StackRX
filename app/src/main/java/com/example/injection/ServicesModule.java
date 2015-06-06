@@ -2,11 +2,12 @@ package com.example.injection;
 
 import android.app.Application;
 
+import com.example.main.user.UserSession;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import com.example.main.user.UserSession;
 import example.com.stackrx.services.base.ServiceEnvironment;
 import example.com.stackrx.services.questions.dao.QuestionsDAO;
 

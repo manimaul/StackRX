@@ -1,9 +1,10 @@
 package com.example.injection;
 
+import com.example.questions.fragment.QuestionsFragment;
+
 import javax.inject.Singleton;
 
 import dagger.Component;
-import com.example.questions.fragment.QuestionsFragment;
 
 @Singleton
 @Component(modules = ServicesModule.class)

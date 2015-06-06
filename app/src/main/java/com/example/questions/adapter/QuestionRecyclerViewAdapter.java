@@ -8,13 +8,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.main.application.AppConstants;
+import com.example.main.event.NavigationEvent;
+
 import java.util.ArrayList;
 import java.util.List;
 
-import liffft.com.stackrx.R;
-import com.example.main.application.AppConstants;
-import com.example.main.event.NavigationEvent;
 import example.com.stackrx.services.questions.model.Item;
+import liffft.com.stackrx.R;
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 

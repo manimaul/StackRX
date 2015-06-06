@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.main.application.StackRXApp;
+import com.example.main.fragment.StackRXBaseFragmemt;
+import com.example.main.user.UserSession;
+import com.example.questions.adapter.QuestionRecyclerViewAdapter;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-import liffft.com.stackrx.R;
-import com.example.main.application.StackRXApp;
-import com.example.main.fragment.StackRXBaseFragmemt;
-import com.example.main.user.UserSession;
-import com.example.questions.adapter.QuestionRecyclerViewAdapter;
 import example.com.stackrx.services.questions.dao.QuestionsDAO;
 import example.com.stackrx.services.questions.model.Questions;
+import liffft.com.stackrx.R;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 

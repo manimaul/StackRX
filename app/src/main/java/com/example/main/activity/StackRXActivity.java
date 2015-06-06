@@ -4,11 +4,11 @@ import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 
+import com.example.questions.fragment.QuestionsFragment;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import liffft.com.stackrx.R;
-
-import com.example.questions.fragment.QuestionsFragment;
 
 public class StackRXActivity extends AppCompatActivity {
 
