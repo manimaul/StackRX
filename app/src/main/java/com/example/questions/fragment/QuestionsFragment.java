@@ -1,6 +1,6 @@
 package com.example.questions.fragment;
 
-import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,13 +28,6 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
-
-    @Inject
-    QuestionsDAO _questionsDAO;
-
-    @Inject
-    UserSession _userSession;
-
     //endregion
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
@@ -51,20 +44,16 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
     //region FIELDS --------------------------------------------------------------------------------
 
-    private Activity _activity;
+    private Context _context;
 
     private QuestionRecyclerViewAdapter _questionRecyclerViewAdapter;
 
-    private GetQuestionSubscriber _getQuestionSubscriber;
-
     //endregion
+
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
-
-    public QuestionsFragment() {
-    }
-
     //endregion
+
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
@@ -73,6 +62,8 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         StackRXApp.component().inject(this);
+        _context = getActivity().getBaseContext();
+        _questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter();
     }
 
     @Override
@@ -87,21 +78,49 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
         super.onViewCreated(view, savedInstanceState);
 
         // Setup recycler view
-        _recyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(_context);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        _recyclerView.setHasFixedSize(true);
         _recyclerView.setLayoutManager(layoutManager);
-
-        // Subscribe and call the observable
-        _getQuestionSubscriber = new GetQuestionSubscriber();
-        _compositeSubscription.add(_questionsDAO.getQuestions()
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(_getQuestionSubscriber));
-
-        _questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter(getActivity());
         _recyclerView.setAdapter(_questionRecyclerViewAdapter);
+    }
 
-        _activity = getActivity();
+    @Override
+    public void onResume() {
+        super.onResume();
+        apiGetQuestions();
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        _recyclerView.setAdapter(null);
+        _recyclerView.setLayoutManager(null);
+    }
+
+    private void apiGetQuestions() {
+        addSubscription(getQuestionsDAO().getQuestions()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<Questions>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Toast.makeText(_context, _context.getString(R.string.service_error),
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onNext(Questions questions) {
+                        getUserSession().setQuestions(questions);
+                        _questionRecyclerViewAdapter.setItemList(questions.getItems());
+                        _questionRecyclerViewAdapter.notifyDataSetChanged();
+                    }
+                }));
     }
 
     //endregion
@@ -124,27 +143,6 @@ public class QuestionsFragment extends StackRXBaseFragmemt {
 
 
     //region SUBSCRIBERS ---------------------------------------------------------------------------
-
-    private class GetQuestionSubscriber implements Observer<Questions> {
-
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            Toast.makeText(_activity, _activity.getString(R.string.service_error), Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        public void onNext(Questions questions) {
-            _userSession.setQuestions(questions);
-            _questionRecyclerViewAdapter.setItemList(questions.getItems());
-            _questionRecyclerViewAdapter.notifyDataSetChanged();
-        }
-    }
-
     //endregion
 
 

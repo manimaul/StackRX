@@ -2,12 +2,26 @@ package com.example.main.fragment;
 
 import android.support.v4.app.Fragment;
 
+import com.example.main.user.UserSession;
+
+import javax.inject.Inject;
+
+import dagger.Lazy;
+import example.com.stackrx.services.questions.dao.QuestionsDAO;
+import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
 public class StackRXBaseFragmemt extends Fragment {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
+
+    @Inject
+    Lazy<QuestionsDAO> _lazyQuestionsDAO;
+
+    @Inject
+    Lazy<UserSession> _lazyUserSession;
+
     //endregion
 
 
@@ -21,7 +35,7 @@ public class StackRXBaseFragmemt extends Fragment {
 
     //region FIELDS --------------------------------------------------------------------------------
 
-    protected CompositeSubscription _compositeSubscription = new CompositeSubscription();
+    private CompositeSubscription _compositeSubscription = new CompositeSubscription();
 
     //endregion
 
@@ -54,6 +68,17 @@ public class StackRXBaseFragmemt extends Fragment {
 
 
     //region LOCAL METHODS -------------------------------------------------------------------------
+
+    /**
+     * Adds a subscription to the internal CompositeSubscription (http://reactivex.io/RxJava/javadoc/rx/subscriptions/CompositeSubscription.html)
+     * which will be un-subscribed from onDestroy()
+     *
+     * @param subscription the Subscription to add
+     */
+    public void addSubscription(Subscription subscription) {
+        _compositeSubscription.add(subscription);
+    }
+
     //endregion
 
 
@@ -62,6 +87,15 @@ public class StackRXBaseFragmemt extends Fragment {
 
 
     //region ACCESSORS -----------------------------------------------------------------------------
+
+    public UserSession getUserSession() {
+        return _lazyUserSession.get();
+    }
+
+    public QuestionsDAO getQuestionsDAO() {
+        return _lazyQuestionsDAO.get();
+    }
+
     //endregion
 
 

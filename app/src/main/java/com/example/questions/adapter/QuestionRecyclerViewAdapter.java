@@ -1,6 +1,5 @@
 package com.example.questions.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,17 +33,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region FIELDS --------------------------------------------------------------------------------
 
     private List<Item> _itemList = new ArrayList<>();
-    private Context _context;
 
     //endregion
 
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
-
-    public QuestionRecyclerViewAdapter(Context context) {
-        _context = context;
-    }
-
     //endregion
 
 
@@ -63,7 +56,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
         itemHolder._questionText.setText(_itemList.get(i).getTitle());
-        itemHolder._viewAnswersButton.setText(String.format(_context.getString(R.string.item_question_view_answers), _itemList.get(i).getAnswerCount()));
+        String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
+                _itemList.get(i).getAnswerCount());
+        itemHolder._viewAnswersButton.setText(answerBtnTxt);
 
         itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
             @Override
