@@ -67,7 +67,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
     //Todo: failing test
     public void testdNetwork_Disconnected() throws Exception {
         /*
-         * When network state is connected, verify that QuestionsDAO.getQuestions() is NOT called
+         * When network state is disconnected, verify that QuestionsDAO.getQuestions() is NOT called
          */
 
         NetworkInfo networkInfo = Mockito.mock(NetworkInfo.class);
