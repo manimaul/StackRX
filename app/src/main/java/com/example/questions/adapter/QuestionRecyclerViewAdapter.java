@@ -1,5 +1,6 @@
 package com.example.questions.adapter;
 
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,8 +14,8 @@ import com.example.main.event.NavigationEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+import example.com.stackrx.R;
 import example.com.stackrx.services.questions.model.Item;
-import liffft.com.stackrx.R;
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -101,8 +102,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     //region ACCESSORS -----------------------------------------------------------------------------
 
-    public void setItemList(List<Item> itemList) {
-        _itemList = itemList;
+    public void setItemList(@Nullable List<Item> itemList) {
+        _itemList.clear();
+        if (itemList != null) {
+            _itemList.addAll(itemList);
+        }
     }
     //endregion
 

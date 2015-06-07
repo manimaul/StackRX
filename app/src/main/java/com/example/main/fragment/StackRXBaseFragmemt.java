@@ -1,7 +1,10 @@
 package com.example.main.fragment;
 
-import android.support.v4.app.Fragment;
+import android.app.Fragment;
+import android.net.ConnectivityManager;
+import android.os.Bundle;
 
+import com.example.main.application.StackRXApp;
 import com.example.main.user.UserSession;
 
 import javax.inject.Inject;
@@ -11,7 +14,7 @@ import example.com.stackrx.services.questions.dao.QuestionsDAO;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public class StackRXBaseFragmemt extends Fragment {
+public abstract class StackRXBaseFragmemt extends Fragment {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
@@ -21,6 +24,9 @@ public class StackRXBaseFragmemt extends Fragment {
 
     @Inject
     Lazy<UserSession> _lazyUserSession;
+
+    @Inject
+    Lazy<ConnectivityManager> _lazyConnectivityManager;
 
     //endregion
 
@@ -46,6 +52,13 @@ public class StackRXBaseFragmemt extends Fragment {
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        StackRXApp.component().inject(this);
+    }
+
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -70,7 +83,10 @@ public class StackRXBaseFragmemt extends Fragment {
     //region LOCAL METHODS -------------------------------------------------------------------------
 
     /**
-     * Adds a subscription to the internal CompositeSubscription (http://reactivex.io/RxJava/javadoc/rx/subscriptions/CompositeSubscription.html)
+     * Adds a subscription to the internal CompositeSubscription
+     *      (http://reactivex.io/RxJava/javadoc/rx/subscriptions/CompositeSubscription.html)
+     *      Subscription that represents a group of Subscriptions that are unsubscribed together.
+     *
      * which will be un-subscribed from onDestroy()
      *
      * @param subscription the Subscription to add
@@ -94,6 +110,10 @@ public class StackRXBaseFragmemt extends Fragment {
 
     public QuestionsDAO getQuestionsDAO() {
         return _lazyQuestionsDAO.get();
+    }
+
+    public ConnectivityManager getConnectivityManager() {
+        return _lazyConnectivityManager.get();
     }
 
     //endregion

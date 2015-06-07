@@ -1,6 +1,10 @@
 package com.example.injection;
 
 import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.preference.PreferenceManager;
 
 import com.example.main.user.UserSession;
 
@@ -21,7 +25,7 @@ public class ServicesModule {
     }
 
     @Provides
-    Application provideApplication(){
+    Application provideApplication() {
         return application;
     }
 
@@ -40,6 +44,17 @@ public class ServicesModule {
     @Singleton
     UserSession provideUserSession() {
         return new UserSession();
+    }
+
+    @Provides
+    @Singleton
+    SharedPreferences providePreferenceManager() {
+        return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    ConnectivityManager provideConnectivityManager() {
+        return (ConnectivityManager) application.getSystemService(Context.CONNECTIVITY_SERVICE);
     }
 
 }
