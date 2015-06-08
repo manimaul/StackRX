@@ -86,10 +86,7 @@ public class QuestionsFragment extends StackRXBaseFragment {
                 .subscribe(new Action1<Item>() {
                     @Override
                     public void call(Item item) {
-                        getFragmentManager().beginTransaction()
-                                .replace(R.id.container, new AnswerFragment())
-                                .addToBackStack(null)
-                                .commit();
+                        //todo:
                     }
                 }));
     }
