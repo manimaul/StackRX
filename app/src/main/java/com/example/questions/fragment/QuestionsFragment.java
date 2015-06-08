@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.main.fragment.StackRXBaseFragmemt;
+import com.example.main.fragment.StackRXBaseFragment;
 import com.example.questions.adapter.QuestionRecyclerViewAdapter;
 
 import butterknife.ButterKnife;
@@ -19,7 +19,7 @@ import example.com.stackrx.services.questions.model.Questions;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
 
-public class QuestionsFragment extends StackRXBaseFragmemt {
+public class QuestionsFragment extends StackRXBaseFragment {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------

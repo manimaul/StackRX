@@ -14,7 +14,7 @@ import example.com.stackrx.services.questions.dao.QuestionsDAO;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
-public abstract class StackRXBaseFragmemt extends Fragment {
+public abstract class StackRXBaseFragment extends Fragment {
 
 
     //region INJECTED CLASSES ----------------------------------------------------------------------

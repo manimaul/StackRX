@@ -1,4 +1,4 @@
-package com.example.injection;
+package com.example.injection.module;
 
 import android.app.Application;
 import android.content.Context;

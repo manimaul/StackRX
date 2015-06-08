@@ -4,11 +4,11 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.example.injection.DeGraphComponent;
+import com.example.injection.component.DeGraphComponent;
 import com.example.main.activity.StackRXActivity;
 import com.example.main.application.StackRXApp;
-import com.example.main.fragment.InitialFragment;
-import com.example.main.fragment.StackRXBaseFragmemt;
+import com.example.injection.InitialFragment;
+import com.example.main.fragment.StackRXBaseFragment;
 import com.example.main.user.UserSession;
 
 import org.mockito.Mock;
@@ -65,7 +65,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
     }
 
     //Todo: failing test
-    public void testdNetwork_Disconnected() throws Exception {
+    public void testNetwork_Disconnected() throws Exception {
         /*
          * When network state is disconnected, verify that QuestionsDAO.getQuestions() is NOT called
          */
@@ -122,7 +122,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
             return new InitialFragment() {
                 @Override
-                public StackRXBaseFragmemt createInitialFragment() {
+                public StackRXBaseFragment createInitialFragment() {
                     return new QuestionsFragment();
                 }
             };

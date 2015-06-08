@@ -2,10 +2,10 @@ package com.example.main.application;
 
 import android.app.Application;
 
-import com.example.injection.DaggerDeComponent;
-import com.example.injection.DeGraphComponent;
-import com.example.injection.FragmentModule;
-import com.example.injection.ServicesModule;
+import com.example.injection.component.DaggerDeComponent;
+import com.example.injection.component.DeGraphComponent;
+import com.example.injection.module.FragmentModule;
+import com.example.injection.module.ServicesModule;
 
 public class StackRXApp extends Application {
 

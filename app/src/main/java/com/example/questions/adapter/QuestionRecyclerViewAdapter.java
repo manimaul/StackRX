@@ -8,9 +8,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.main.application.AppConstants;
-import com.example.main.event.NavigationEvent;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,16 +57,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
                 _itemList.get(i).getAnswerCount());
         itemHolder._viewAnswersButton.setText(answerBtnTxt);
-
-        itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavigationEvent navigationEvent = new NavigationEvent();
-                navigationEvent.setDrawerItem(AppConstants.NAVIGATION.DRAWER_IDENTIFIER.QUESTION_DRAWER);
-                navigationEvent.setFragmentName(AppConstants.NAVIGATION.NAVIGATION_ROUTES.ANSWER_FRAGMENT);
-            }
-        });
-
     }
     //endregion
 

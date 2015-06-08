@@ -1,4 +1,7 @@
-package com.example.injection;
+package com.example.injection.component;
+
+import com.example.injection.module.FragmentModule;
+import com.example.injection.module.ServicesModule;
 
 import javax.inject.Singleton;
 

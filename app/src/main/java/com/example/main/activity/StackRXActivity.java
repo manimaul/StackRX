@@ -4,9 +4,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
 
-import com.example.injection.FragmentModule;
+import com.example.injection.module.FragmentModule;
+import com.example.injection.InitialFragment;
 import com.example.main.application.StackRXApp;
-import com.example.main.fragment.InitialFragment;
 
 import javax.inject.Inject;
 
