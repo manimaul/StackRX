@@ -5,9 +5,9 @@ import android.net.NetworkInfo;
 import android.test.ActivityInstrumentationTestCase2;
 
 import com.example.injection.component.DeGraphComponent;
+import com.example.main.activity.InitialFragment;
 import com.example.main.activity.StackRXActivity;
 import com.example.main.application.StackRXApp;
-import com.example.injection.InitialFragment;
 import com.example.main.fragment.StackRXBaseFragment;
 import com.example.main.user.UserSession;
 

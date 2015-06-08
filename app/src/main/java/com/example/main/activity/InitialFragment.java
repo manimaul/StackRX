@@ -1,4 +1,4 @@
-package com.example.injection;
+package com.example.main.activity;
 
 import com.example.main.fragment.StackRXBaseFragment;
 

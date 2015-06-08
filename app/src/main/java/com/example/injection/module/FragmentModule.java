@@ -1,6 +1,6 @@
 package com.example.injection.module;
 
-import com.example.injection.InitialFragment;
+import com.example.main.activity.InitialFragment;
 import com.example.main.fragment.StackRXBaseFragment;
 import com.example.questions.fragment.QuestionsFragment;
 
