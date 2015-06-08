@@ -13,6 +13,8 @@ import java.util.List;
 
 import example.com.stackrx.R;
 import example.com.stackrx.services.questions.model.Item;
+import rx.Observable;
+import rx.subjects.PublishSubject;
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
@@ -31,6 +33,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region FIELDS --------------------------------------------------------------------------------
 
     private List<Item> _itemList = new ArrayList<>();
+
+    private PublishSubject<Item> _itemClickPublishSubject = PublishSubject.create();
 
     //endregion
 
@@ -54,10 +58,25 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
         itemHolder._questionText.setText(_itemList.get(i).getTitle());
+        final Item item = _itemList.get(i);
         String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
-                _itemList.get(i).getAnswerCount());
+                item.getAnswerCount());
+        itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                _itemClickPublishSubject.onNext(item);
+            }
+        });
         itemHolder._viewAnswersButton.setText(answerBtnTxt);
     }
+
+    @Override
+    public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
+        super.onViewRecycled(viewHolder);
+        ItemHolder itemHolder = (ItemHolder) viewHolder;
+        itemHolder._viewAnswersButton.setOnClickListener(null);
+    }
+
     //endregion
 
 
@@ -80,6 +99,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
 
     //region LOCAL METHODS -------------------------------------------------------------------------
+
+    public Observable<Item> getQuestionItemSelected() {
+        return Observable.switchOnNext(Observable.just(_itemClickPublishSubject));
+    }
+
     //endregion
 
 

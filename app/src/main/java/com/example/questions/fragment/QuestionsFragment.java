@@ -15,9 +15,11 @@ import com.example.questions.adapter.QuestionRecyclerViewAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import example.com.stackrx.R;
+import example.com.stackrx.services.questions.model.Item;
 import example.com.stackrx.services.questions.model.Questions;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
 
 public class QuestionsFragment extends StackRXBaseFragment {
 
@@ -78,6 +80,18 @@ public class QuestionsFragment extends StackRXBaseFragment {
         _recyclerView.setHasFixedSize(true);
         _recyclerView.setLayoutManager(layoutManager);
         _recyclerView.setAdapter(_questionRecyclerViewAdapter);
+
+        addSubscription(_questionRecyclerViewAdapter.getQuestionItemSelected()
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Action1<Item>() {
+                    @Override
+                    public void call(Item item) {
+                        getFragmentManager().beginTransaction()
+                                .replace(R.id.container, new AnswerFragment())
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }));
     }
 
     @Override

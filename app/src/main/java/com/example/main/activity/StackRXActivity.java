@@ -59,7 +59,7 @@ public class StackRXActivity extends Activity {
          * @see FragmentModule#provideFragmentCreator()
          */
         getFragmentManager().beginTransaction()
-                .add(R.id.container, _initialFragment.createInitialFragment())
+                .replace(R.id.container, _initialFragment.createInitialFragment())
                 .commit();
     }
 
