@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,7 +16,7 @@ import com.example.questions.adapter.QuestionRecyclerViewAdapter;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import example.com.stackrx.R;
-import example.com.stackrx.services.questions.model.Item;
+import example.com.stackrx.services.questions.model.QuestionItem;
 import example.com.stackrx.services.questions.model.Questions;
 import rx.Observer;
 import rx.android.schedulers.AndroidSchedulers;
@@ -83,10 +84,10 @@ public class QuestionsFragment extends StackRXBaseFragment {
 
         addSubscription(_questionRecyclerViewAdapter.getQuestionItemSelected()
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Action1<Item>() {
+                .subscribe(new Action1<QuestionItem>() {
                     @Override
-                    public void call(Item item) {
-                        //todo:
+                    public void call(QuestionItem item) {
+                        onQuestionItemSelected(item);
                     }
                 }));
     }
@@ -120,6 +121,11 @@ public class QuestionsFragment extends StackRXBaseFragment {
 
 
     //region LOCAL METHODS -------------------------------------------------------------------------
+
+    private void onQuestionItemSelected(QuestionItem item) {
+        Log.i("TAG", "question item selected: " + item.getTitle());
+        //todo: implement me
+    }
 
     private void apiGetQuestions() {
         addSubscription(getQuestionsDAO().getQuestions()

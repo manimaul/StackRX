@@ -11,7 +11,7 @@ import javax.annotation.Generated;
 public class Questions {
 
     @Expose
-    private List<Item> items;
+    private List<QuestionItem> items;
 
     @Expose
     private Boolean hasMore;
@@ -27,7 +27,7 @@ public class Questions {
      * @return
      *     The items
      */
-    public List<Item> getItems() {
+    public List<QuestionItem> getItems() {
         return items;
     }
 
@@ -36,7 +36,7 @@ public class Questions {
      * @param items
      *     The items
      */
-    public void setItems(List<Item> items) {
+    public void setItems(List<QuestionItem> items) {
         this.items = items;
     }
 

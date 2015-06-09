@@ -1,13 +1,13 @@
 package com.example.main.user;
 
 
-import example.com.stackrx.services.questions.model.Item;
+import example.com.stackrx.services.questions.model.QuestionItem;
 import example.com.stackrx.services.questions.model.Questions;
 
 public class UserSession {
 
     private Questions _questions;
-    private Item _selectedQuestion;
+    private QuestionItem _selectedQuestion;
 
     public Questions getQuestions() {
         return _questions;
@@ -17,11 +17,11 @@ public class UserSession {
         _questions = questions;
     }
 
-    public Item getSelectedQuestion() {
+    public QuestionItem getSelectedQuestion() {
         return _selectedQuestion;
     }
 
-    public void setSelectedQuestion(Item selectedQuestion) {
+    public void setSelectedQuestion(QuestionItem selectedQuestion) {
         _selectedQuestion = selectedQuestion;
     }
 
