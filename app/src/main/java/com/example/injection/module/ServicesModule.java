@@ -12,8 +12,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import example.com.stackrx.services.base.ServiceEnvironment;
-import example.com.stackrx.services.questions.dao.QuestionsDAO;
+import example.com.stackrx.services.questions.service.StackExchangeService;
 
 @Module
 public class ServicesModule {
@@ -30,14 +29,8 @@ public class ServicesModule {
     }
 
     @Provides
-    ServiceEnvironment provideServiceEnvironment() {
-        return new ServiceEnvironment();
-    }
-
-    @Provides
-    @Singleton
-    QuestionsDAO provideQuestionsDAO(ServiceEnvironment serviceEnvironment) {
-        return new QuestionsDAO(serviceEnvironment);
+    StackExchangeService provideQuestionsDAO() {
+        return new StackExchangeService();
     }
 
     @Provides
@@ -47,7 +40,6 @@ public class ServicesModule {
     }
 
     @Provides
-    @Singleton
     SharedPreferences providePreferenceManager() {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }

@@ -10,7 +10,7 @@ import com.example.main.user.UserSession;
 import javax.inject.Inject;
 
 import dagger.Lazy;
-import example.com.stackrx.services.questions.dao.QuestionsDAO;
+import example.com.stackrx.services.questions.service.StackExchangeService;
 import rx.Subscription;
 import rx.subscriptions.CompositeSubscription;
 
@@ -20,7 +20,7 @@ public abstract class StackRXBaseFragment extends Fragment {
     //region INJECTED CLASSES ----------------------------------------------------------------------
 
     @Inject
-    Lazy<QuestionsDAO> _lazyQuestionsDAO;
+    Lazy<StackExchangeService> _lazyQuestionsDAO;
 
     @Inject
     Lazy<UserSession> _lazyUserSession;
@@ -108,7 +108,7 @@ public abstract class StackRXBaseFragment extends Fragment {
         return _lazyUserSession.get();
     }
 
-    public QuestionsDAO getQuestionsDAO() {
+    public StackExchangeService getQuestionsDAO() {
         return _lazyQuestionsDAO.get();
     }
 

@@ -21,8 +21,8 @@ import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
 import example.com.stackrx.R;
-import example.com.stackrx.services.questions.dao.QuestionsDAO;
 import example.com.stackrx.services.questions.model.Questions;
+import example.com.stackrx.services.questions.service.StackExchangeService;
 import rx.Observable;
 
 import static org.mockito.Mockito.never;
@@ -56,7 +56,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         //Minimum mock data to prevent Fragment NPE
         Questions questions = new Questions();
-        Mockito.when(_questionsFragmentTestModule._questionsDAO.getQuestions()).thenReturn(Observable.just(questions));
+        Mockito.when(_questionsFragmentTestModule._stackExchangeService.getQuestions()).thenReturn(Observable.just(questions));
     }
 
 
@@ -76,7 +76,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
         startFragment();
 
         //The thing under test
-        Mockito.verify(_questionsFragmentTestModule._questionsDAO, never()).getQuestions();
+        Mockito.verify(_questionsFragmentTestModule._stackExchangeService, never()).getQuestions();
     }
 
     public void testNetwork_Connected() throws Exception {
@@ -90,7 +90,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
         startFragment();
 
         //The thing under test
-        Mockito.verify(_questionsFragmentTestModule._questionsDAO, times(1)).getQuestions();
+        Mockito.verify(_questionsFragmentTestModule._stackExchangeService, times(1)).getQuestions();
     }
 
 
@@ -105,7 +105,7 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
     public static class QuestionsFragmentTestModule {
 
         @Mock
-        QuestionsDAO _questionsDAO;
+        StackExchangeService _stackExchangeService;
 
         @Mock
         UserSession _userSession;
@@ -139,8 +139,8 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
         }
 
         @Provides
-        QuestionsDAO provideQuestionDAO() {
-            return _questionsDAO;
+        StackExchangeService provideQuestionDAO() {
+            return _stackExchangeService;
         }
     }
 
