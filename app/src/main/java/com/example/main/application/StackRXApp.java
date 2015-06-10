@@ -20,14 +20,14 @@ public class StackRXApp extends Application {
 
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
 
-    private static StackRXApp app;
+    private static StackRXApp APP;
 
     //endregion
 
 
     //region FIELDS --------------------------------------------------------------------------------
 
-    private DeGraphComponent component = null;
+    private DeGraphComponent _component = null;
 
     //endregion
 
@@ -41,7 +41,7 @@ public class StackRXApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        app = this;
+        APP = this;
         buildComponentAndInject();
     }
 
@@ -63,13 +63,13 @@ public class StackRXApp extends Application {
     //region LOCAL METHODS -------------------------------------------------------------------------
 
     /**
-     * Create the default dependency injection component
+     * Create the default dependency injection _component
      */
     public void buildComponentAndInject() {
-        // only set if not null to allow for injection component implementation interface to be overridden
-        if (component == null) {
+        // only set if not null to allow for injection _component implementation interface to be overridden
+        if (_component == null) {
             setComponent(DaggerDeComponent.builder()
-                    .servicesModule(new ServicesModule(app))
+                    .servicesModule(new ServicesModule(APP))
                     .fragmentModule(new FragmentModule())
                     .build());
         }
@@ -85,12 +85,12 @@ public class StackRXApp extends Application {
     //region ACCESSORS -----------------------------------------------------------------------------
 
     /**
-     * Set the application dependency injection implementation component
-     * @param component the component to set
+     * Set the application dependency injection implementation _component
+     * @param component the _component to set
      * @see {http://google.github.io/dagger/api/latest/dagger/Component.html}
      */
     public void setComponent(DeGraphComponent component) {
-        this.component = component;
+        this._component = component;
     }
 
     //endregion
@@ -103,11 +103,11 @@ public class StackRXApp extends Application {
     //region CLASS METHODS -------------------------------------------------------------------------
 
     /**
-     * Get the application dependency injection implementation component
-     * @return the component
+     * Get the application dependency injection implementation _component
+     * @return the _component
      */
     public static DeGraphComponent component() {
-        return app.component;
+        return APP._component;
     }
 
     //endregion

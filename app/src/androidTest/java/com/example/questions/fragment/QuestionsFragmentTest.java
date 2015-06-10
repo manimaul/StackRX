@@ -8,8 +8,8 @@ import com.example.injection.component.DeGraphComponent;
 import com.example.main.activity.InitialFragment;
 import com.example.main.activity.StackRXActivity;
 import com.example.main.application.StackRXApp;
+import com.example.main.fragment.QuestionsFragment;
 import com.example.main.fragment.StackRXBaseFragment;
-import com.example.main.user.UserSession;
 
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -41,7 +41,8 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
         super.setUp();
 
         //work around for mockito https://code.google.com/p/dexmaker/issues/detail?id=2
-        System.setProperty("dexmaker.dexcache", getInstrumentation().getTargetContext().getCacheDir().getPath());
+        System.setProperty("dexmaker.dexcache", getInstrumentation().getTargetContext()
+                .getCacheDir().getPath());
 
         //setup testing dependency injection
         _questionsFragmentTestModule = new QuestionsFragmentTestModule();
@@ -56,7 +57,8 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         //Minimum mock data to prevent Fragment NPE
         Questions questions = new Questions();
-        Mockito.when(_questionsFragmentTestModule._stackExchangeService.getQuestions()).thenReturn(Observable.just(questions));
+        Mockito.when(_questionsFragmentTestModule._stackExchangeService.getQuestions())
+                .thenReturn(Observable.just(questions));
     }
 
 
@@ -72,7 +74,8 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         NetworkInfo networkInfo = Mockito.mock(NetworkInfo.class);
         Mockito.when(networkInfo.getState()).thenReturn(NetworkInfo.State.DISCONNECTED);
-        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo()).thenReturn(networkInfo);
+        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
+                .thenReturn(networkInfo);
         startFragment();
 
         //The thing under test
@@ -86,7 +89,8 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         NetworkInfo networkInfo = Mockito.mock(NetworkInfo.class);
         Mockito.when(networkInfo.getState()).thenReturn(NetworkInfo.State.CONNECTED);
-        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo()).thenReturn(networkInfo);
+        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
+                .thenReturn(networkInfo);
         startFragment();
 
         //The thing under test
@@ -106,9 +110,6 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         @Mock
         StackExchangeService _stackExchangeService;
-
-        @Mock
-        UserSession _userSession;
 
         @Mock
         ConnectivityManager _connectivityManager;
@@ -131,11 +132,6 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
         @Provides
         ConnectivityManager provideConnectivityManager() {
             return _connectivityManager;
-        }
-
-        @Provides
-        UserSession provideUserSession() {
-            return _userSession;
         }
 
         @Provides

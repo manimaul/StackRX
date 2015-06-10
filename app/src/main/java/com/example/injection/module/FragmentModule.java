@@ -1,8 +1,8 @@
 package com.example.injection.module;
 
 import com.example.main.activity.InitialFragment;
+import com.example.main.fragment.QuestionsFragment;
 import com.example.main.fragment.StackRXBaseFragment;
-import com.example.questions.fragment.QuestionsFragment;
 
 import dagger.Module;
 import dagger.Provides;
