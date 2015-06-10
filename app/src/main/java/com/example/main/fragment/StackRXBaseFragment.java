@@ -5,7 +5,6 @@ import android.net.ConnectivityManager;
 import android.os.Bundle;
 
 import com.example.main.application.StackRXApp;
-import com.example.main.user.UserSession;
 
 import javax.inject.Inject;
 
@@ -21,9 +20,6 @@ public abstract class StackRXBaseFragment extends Fragment {
 
     @Inject
     Lazy<StackExchangeService> _lazyQuestionsDAO;
-
-    @Inject
-    Lazy<UserSession> _lazyUserSession;
 
     @Inject
     Lazy<ConnectivityManager> _lazyConnectivityManager;
@@ -103,10 +99,6 @@ public abstract class StackRXBaseFragment extends Fragment {
 
 
     //region ACCESSORS -----------------------------------------------------------------------------
-
-    public UserSession getUserSession() {
-        return _lazyUserSession.get();
-    }
 
     public StackExchangeService getQuestionsDAO() {
         return _lazyQuestionsDAO.get();

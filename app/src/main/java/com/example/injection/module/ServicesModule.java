@@ -6,8 +6,6 @@ import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.preference.PreferenceManager;
 
-import com.example.main.user.UserSession;
-
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -28,15 +26,10 @@ public class ServicesModule {
         return application;
     }
 
+    @Singleton
     @Provides
     StackExchangeService provideQuestionsDAO() {
         return new StackExchangeService();
-    }
-
-    @Provides
-    @Singleton
-    UserSession provideUserSession() {
-        return new UserSession();
     }
 
     @Provides

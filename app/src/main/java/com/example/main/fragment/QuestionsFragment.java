@@ -1,4 +1,4 @@
-package com.example.questions.fragment;
+package com.example.main.fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,8 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.main.fragment.StackRXBaseFragment;
-import com.example.questions.adapter.QuestionRecyclerViewAdapter;
+import com.example.main.adapter.QuestionRecyclerViewAdapter;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -144,7 +143,6 @@ public class QuestionsFragment extends StackRXBaseFragment {
 
                     @Override
                     public void onNext(Questions questions) {
-                        getUserSession().setQuestions(questions);
                         _questionRecyclerViewAdapter.setItemList(questions.getItems());
                         _questionRecyclerViewAdapter.notifyDataSetChanged();
                     }
