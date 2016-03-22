@@ -1,98 +1,70 @@
 package com.example.main.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.injection.module.FragmentModule;
-import com.example.main.application.StackRXApp;
+import com.example.injection.Injector;
+import com.example.main.fragment.QuestionsFragment;
 
-import javax.inject.Inject;
-
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 import example.com.stackrx.R;
 
-public class StackRXActivity extends Activity {
-
+public class StackRXActivity extends AppCompatActivity {
 
     //region INJECTED CLASSES ----------------------------------------------------------------------
-
-    @Inject
-    InitialFragment mInitialFragment;
-
     //endregion
-
 
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
-    @InjectView(R.id.drawer_layout)
+    @Bind(R.id.drawer_layout)
     DrawerLayout mDrawerLayout;
 
     //endregion
 
-
     //region FIELDS --------------------------------------------------------------------------------
     //endregion
 
-
     //region CONSTRUCTOR ---------------------------------------------------------------------------
     //endregion
-
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Injector.inject(this);
         setContentView(R.layout.stack_rx_activity);
-        ButterKnife.inject(this);
-        StackRXApp.component().inject(this);
-    }
+        ButterKnife.bind(this);
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-
-        /**
-         *  mInitialFragment is indirect: the purpose is to allow DI to change the initial fragment
-         * @see FragmentModule#provideFragmentCreator()
-         */
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, mInitialFragment.createInitialFragment())
+                .replace(R.id.container, new QuestionsFragment())
                 .commit();
     }
 
     //endregion
 
-
     //region WIDGET --------------------------------------------------------------------------------
     //endregion
-
 
     //region LISTENERS -----------------------------------------------------------------------------
     //endregion
 
-
     //region EVENTS --------------------------------------------------------------------------------
     //endregion
-
 
     //region LOCAL METHODS -------------------------------------------------------------------------
     //endregion
 
-
-    //region SUBSCRIBERS ---------------------------------------------------------------------------
+    //region OBSERVERS -----------------------------------------------------------------------------
     //endregion
-
 
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
 
-
     //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
-
 
     //region CLASS METHODS -------------------------------------------------------------------------
     //endregion
