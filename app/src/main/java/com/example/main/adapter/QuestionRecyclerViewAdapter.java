@@ -32,9 +32,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     //region FIELDS --------------------------------------------------------------------------------
 
-    private List<QuestionItem> _itemList = new ArrayList<>();
+    private List<QuestionItem> mItemList = new ArrayList<>();
 
-    private PublishSubject<QuestionItem> _itemClickPublishSubject = PublishSubject.create();
+    private PublishSubject<QuestionItem> mItemClickPublishSubject = PublishSubject.create();
 
     //endregion
 
@@ -57,14 +57,14 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder._questionText.setText(_itemList.get(i).getTitle());
-        final QuestionItem item = _itemList.get(i);
+        itemHolder._questionText.setText(mItemList.get(i).getTitle());
+        final QuestionItem item = mItemList.get(i);
         String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
                 item.getAnswerCount());
         itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                _itemClickPublishSubject.onNext(item);
+                mItemClickPublishSubject.onNext(item);
             }
         });
         itemHolder._viewAnswersButton.setText(answerBtnTxt);
@@ -84,7 +84,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     @Override
     public int getItemCount() {
-        return _itemList.size();
+        return mItemList.size();
     }
 
     //endregion
@@ -101,7 +101,7 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region LOCAL METHODS -------------------------------------------------------------------------
 
     public Observable<QuestionItem> getQuestionItemSelected() {
-        return _itemClickPublishSubject.asObservable();
+        return mItemClickPublishSubject.asObservable();
     }
 
     //endregion
@@ -114,9 +114,9 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region ACCESSORS -----------------------------------------------------------------------------
 
     public void setItemList(@Nullable List<QuestionItem> itemList) {
-        _itemList.clear();
+        mItemList.clear();
         if (itemList != null) {
-            _itemList.addAll(itemList);
+            mItemList.addAll(itemList);
         }
     }
     //endregion

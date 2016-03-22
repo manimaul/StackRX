@@ -30,7 +30,7 @@ public class QuestionsFragment extends StackRXBaseFragment {
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @InjectView(R.id.question_fragment_question_recycler_view)
-    RecyclerView _recyclerView;
+    RecyclerView mRecyclerView;
 
     //endregion
 
@@ -41,9 +41,9 @@ public class QuestionsFragment extends StackRXBaseFragment {
 
     //region FIELDS --------------------------------------------------------------------------------
 
-    private Context _context;
+    private Context mContext;
 
-    private QuestionRecyclerViewAdapter _questionRecyclerViewAdapter;
+    private QuestionRecyclerViewAdapter mQuestionRecyclerViewAdapter;
 
     //endregion
 
@@ -58,8 +58,8 @@ public class QuestionsFragment extends StackRXBaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        _context = getActivity().getBaseContext();
-        _questionRecyclerViewAdapter = new QuestionRecyclerViewAdapter();
+        mContext = getActivity().getBaseContext();
+        mQuestionRecyclerViewAdapter = new QuestionRecyclerViewAdapter();
     }
 
     @Override
@@ -74,14 +74,14 @@ public class QuestionsFragment extends StackRXBaseFragment {
         super.onViewCreated(view, savedInstanceState);
 
         // Setup recycler view
-        LinearLayoutManager layoutManager = new LinearLayoutManager(_context);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(mContext);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setLayoutManager(layoutManager);
-        _recyclerView.setAdapter(_questionRecyclerViewAdapter);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setAdapter(mQuestionRecyclerViewAdapter);
 
-        addSubscription(_questionRecyclerViewAdapter.getQuestionItemSelected()
+        addSubscription(mQuestionRecyclerViewAdapter.getQuestionItemSelected()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Action1<QuestionItem>() {
                     @Override
@@ -100,8 +100,8 @@ public class QuestionsFragment extends StackRXBaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        _recyclerView.setAdapter(null);
-        _recyclerView.setLayoutManager(null);
+        mRecyclerView.setAdapter(null);
+        mRecyclerView.setLayoutManager(null);
     }
 
     //endregion
@@ -137,14 +137,14 @@ public class QuestionsFragment extends StackRXBaseFragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(_context, _context.getString(R.string.service_error),
+                        Toast.makeText(mContext, mContext.getString(R.string.service_error),
                                 Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
                     public void onNext(Questions questions) {
-                        _questionRecyclerViewAdapter.setItemList(questions.getItems());
-                        _questionRecyclerViewAdapter.notifyDataSetChanged();
+                        mQuestionRecyclerViewAdapter.setItemList(questions.getItems());
+                        mQuestionRecyclerViewAdapter.notifyDataSetChanged();
                     }
                 }));
     }

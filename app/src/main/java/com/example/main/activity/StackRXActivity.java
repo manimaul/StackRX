@@ -19,7 +19,7 @@ public class StackRXActivity extends Activity {
     //region INJECTED CLASSES ----------------------------------------------------------------------
 
     @Inject
-    InitialFragment _initialFragment;
+    InitialFragment mInitialFragment;
 
     //endregion
 
@@ -27,7 +27,7 @@ public class StackRXActivity extends Activity {
     //region INJECTED VIEWS ------------------------------------------------------------------------
 
     @InjectView(R.id.drawer_layout)
-    DrawerLayout _drawerLayout;
+    DrawerLayout mDrawerLayout;
 
     //endregion
 
@@ -55,11 +55,11 @@ public class StackRXActivity extends Activity {
         super.onResume();
 
         /**
-         *  _initialFragment is indirect: the purpose is to allow DI to change the initial fragment
+         *  mInitialFragment is indirect: the purpose is to allow DI to change the initial fragment
          * @see FragmentModule#provideFragmentCreator()
          */
         getFragmentManager().beginTransaction()
-                .replace(R.id.container, _initialFragment.createInitialFragment())
+                .replace(R.id.container, mInitialFragment.createInitialFragment())
                 .commit();
     }
 

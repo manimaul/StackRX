@@ -30,7 +30,7 @@ import static org.mockito.Mockito.times;
 
 public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<StackRXActivity> {
 
-    private QuestionsFragmentTestModule _questionsFragmentTestModule;
+    private QuestionsFragmentTestModule mQuestionsFragmentTestModule;
 
     public QuestionsFragmentTest() {
         super(StackRXActivity.class);
@@ -45,19 +45,19 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
                 .getCacheDir().getPath());
 
         //setup testing dependency injection
-        _questionsFragmentTestModule = new QuestionsFragmentTestModule();
+        mQuestionsFragmentTestModule = new QuestionsFragmentTestModule();
 
         StackRXApp app = (StackRXApp) getInstrumentation().getTargetContext().getApplicationContext();
 
         DeGraphComponent component = DaggerQuestionsFragmentTest_DeTestGraphComponent.builder()
-                .questionsFragmentTestModule(_questionsFragmentTestModule)
+                .questionsFragmentTestModule(mQuestionsFragmentTestModule)
                 .build();
 
         app.setComponent(component);
 
         //Minimum mock data to prevent Fragment NPE
         Questions questions = new Questions();
-        Mockito.when(_questionsFragmentTestModule._stackExchangeService.getQuestions())
+        Mockito.when(mQuestionsFragmentTestModule._stackExchangeService.getQuestions())
                 .thenReturn(Observable.just(questions));
     }
 
@@ -74,12 +74,12 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         NetworkInfo networkInfo = Mockito.mock(NetworkInfo.class);
         Mockito.when(networkInfo.getState()).thenReturn(NetworkInfo.State.DISCONNECTED);
-        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
+        Mockito.when(mQuestionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
                 .thenReturn(networkInfo);
         startFragment();
 
         //The thing under test
-        Mockito.verify(_questionsFragmentTestModule._stackExchangeService, never()).getQuestions();
+        Mockito.verify(mQuestionsFragmentTestModule._stackExchangeService, never()).getQuestions();
     }
 
     public void testNetwork_Connected() throws Exception {
@@ -89,12 +89,12 @@ public class QuestionsFragmentTest extends ActivityInstrumentationTestCase2<Stac
 
         NetworkInfo networkInfo = Mockito.mock(NetworkInfo.class);
         Mockito.when(networkInfo.getState()).thenReturn(NetworkInfo.State.CONNECTED);
-        Mockito.when(_questionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
+        Mockito.when(mQuestionsFragmentTestModule._connectivityManager.getActiveNetworkInfo())
                 .thenReturn(networkInfo);
         startFragment();
 
         //The thing under test
-        Mockito.verify(_questionsFragmentTestModule._stackExchangeService, times(1)).getQuestions();
+        Mockito.verify(mQuestionsFragmentTestModule._stackExchangeService, times(1)).getQuestions();
     }
 
 

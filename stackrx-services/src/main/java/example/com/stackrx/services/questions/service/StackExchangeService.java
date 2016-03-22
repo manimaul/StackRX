@@ -18,7 +18,7 @@ public class StackExchangeService {
 
     private static final String ENDPOINT = "https://api.stackexchange.com";
 
-    private IStackExchangeService _service;
+    private IStackExchangeService mService;
 
     public StackExchangeService() {
         RequestInterceptor interceptor = new RequestInterceptor() {
@@ -44,7 +44,7 @@ public class StackExchangeService {
                 .setLogLevel(RestAdapter.LogLevel.HEADERS_AND_ARGS);
 
         RestAdapter restAdapter = restAdapterBuilder.build();
-        _service = restAdapter.create(IStackExchangeService.class);
+        mService = restAdapter.create(IStackExchangeService.class);
     }
 
     /**
@@ -53,6 +53,6 @@ public class StackExchangeService {
      * @return List of questions
      */
     public Observable<Questions> getQuestions() {
-        return _service.getQuestions();
+        return mService.getQuestions();
     }
 }
