@@ -70,7 +70,7 @@ public class QuestionsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.inject(this);
+        Injector.applicationScope().inject(this);
         mQuestionRecyclerViewAdapter = new QuestionRecyclerViewAdapter();
         mCompositeSubscription = new CompositeSubscription();
     }

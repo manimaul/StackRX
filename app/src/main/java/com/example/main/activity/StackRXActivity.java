@@ -34,7 +34,7 @@ public class StackRXActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.inject(this);
+        Injector.applicationScope().inject(this);
         setContentView(R.layout.stack_rx_activity);
         ButterKnife.bind(this);
 

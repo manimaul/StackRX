@@ -4,9 +4,7 @@ import com.example.injection.component.ApplicationComponent;
 import com.example.injection.component.DaggerApplicationComponent;
 import com.example.injection.module.AndroidModule;
 import com.example.injection.module.ServicesModule;
-import com.example.main.activity.StackRXActivity;
 import com.example.main.application.StackRXApp;
-import com.example.main.fragment.QuestionsFragment;
 
 /**
  * Provides global access to dependency injection.
@@ -61,17 +59,12 @@ public class Injector {
     //region CLASS METHODS -------------------------------------------------------------------------
 
     /**
-     * Inject dependencies.
+     * Get the application scope Dagger2 component injector.
+     *
+     * @return the application scope injector.
      */
-    public static void inject(StackRXActivity activity) {
-        INJECTOR.mApplicationComponent.inject(activity);
-    }
-
-    /**
-     * Inject dependencies.
-     */
-    public static void inject(QuestionsFragment fragment) {
-        INJECTOR.mApplicationComponent.inject(fragment);
+    public static ApplicationComponent applicationScope() {
+        return INJECTOR.mApplicationComponent;
     }
 
     //endregion
