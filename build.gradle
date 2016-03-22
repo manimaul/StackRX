@@ -5,8 +5,8 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.3'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.4' /* Dagger 2 */
+        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8' /* Dagger 2 */
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
@@ -16,5 +16,17 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+    }
+
+    ext {
+        env = System.getenv()
+
+        commonCompileSdkVersion = 23
+        commonBuildToolsVersion = "23.0.2"
+
+        daggerVersion = "2.0.2"
+        // The Android Support Lib and Google Play Services library versions need to be consistent.
+        androidSupportLibVersion = "23.1.1"
+        googlePlayServicesVersion = "8.4.0"
     }
 }
