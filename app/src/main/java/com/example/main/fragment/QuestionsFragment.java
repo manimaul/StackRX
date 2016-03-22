@@ -2,6 +2,7 @@ package com.example.main.fragment;
 
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -34,6 +35,9 @@ public class QuestionsFragment extends Fragment {
 
     @Inject
     Context mContext;
+
+    @Inject
+    Resources mResources;
 
     @Inject
     StackExchangeService mStackExchangeService;
@@ -148,7 +152,7 @@ public class QuestionsFragment extends Fragment {
 
                     @Override
                     public void onError(Throwable e) {
-                        Toast.makeText(mContext, mContext.getString(R.string.service_error),
+                        Toast.makeText(mContext, mResources.getString(R.string.service_error),
                                 Toast.LENGTH_SHORT).show();
                     }
 

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import example.com.stackrx.R;
 import example.com.stackrx.services.questions.model.QuestionItem;
 import rx.Observable;
@@ -21,14 +23,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //region INJECTED CLASSES ----------------------------------------------------------------------
     //endregion
 
-
     //region INJECTED VIEWS ------------------------------------------------------------------------
     //endregion
 
-
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
     //endregion
-
 
     //region FIELDS --------------------------------------------------------------------------------
 
@@ -41,7 +40,6 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     //region CONSTRUCTOR ---------------------------------------------------------------------------
     //endregion
-
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
@@ -57,28 +55,27 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder._questionText.setText(mItemList.get(i).getTitle());
+        itemHolder.mQuestionText.setText(mItemList.get(i).getTitle());
         final QuestionItem item = mItemList.get(i);
         String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
                 item.getAnswerCount());
-        itemHolder._viewAnswersButton.setOnClickListener(new View.OnClickListener() {
+        itemHolder.mViewAnswersButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mItemClickPublishSubject.onNext(item);
             }
         });
-        itemHolder._viewAnswersButton.setText(answerBtnTxt);
+        itemHolder.mViewAnswersButton.setText(answerBtnTxt);
     }
 
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
         super.onViewRecycled(viewHolder);
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder._viewAnswersButton.setOnClickListener(null);
+        itemHolder.mViewAnswersButton.setOnClickListener(null);
     }
 
     //endregion
-
 
     //region WIDGET --------------------------------------------------------------------------------
 
@@ -89,14 +86,11 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
 
     //endregion
 
-
     //region LISTENERS -----------------------------------------------------------------------------
     //endregion
 
-
     //region EVENTS --------------------------------------------------------------------------------
     //endregion
-
 
     //region LOCAL METHODS -------------------------------------------------------------------------
 
@@ -107,9 +101,8 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     //endregion
 
 
-    //region SUBSCRIBERS ---------------------------------------------------------------------------
+    //region OBSERVERS -----------------------------------------------------------------------------
     //endregion
-
 
     //region ACCESSORS -----------------------------------------------------------------------------
 
@@ -121,25 +114,24 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
     }
     //endregion
 
-
     //region INNER CLASSES -------------------------------------------------------------------------
 
-    private static class ItemHolder extends RecyclerView.ViewHolder {
+    static class ItemHolder extends RecyclerView.ViewHolder {
 
-        public TextView _questionText;
-        public Button _viewAnswersButton;
+        @Bind(R.id.item_question_question_text_view)
+        TextView mQuestionText;
+
+        @Bind(R.id.item_question_view_answers_button)
+        Button mViewAnswersButton;
 
         private ItemHolder(View itemView) {
             super(itemView);
-            _questionText = (TextView) itemView.findViewById(R.id.item_question_question_text_view);
-            _viewAnswersButton = (Button) itemView.findViewById(R.id.item_question_view_answers_button);
+            ButterKnife.bind(itemView);
         }
     }
     //endregion
 
-
     //region CLASS METHODS -------------------------------------------------------------------------
     //endregion
-
 
 }
