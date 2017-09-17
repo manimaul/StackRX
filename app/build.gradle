@@ -1,16 +1,27 @@
 apply plugin: 'com.android.application'
-apply plugin: 'com.neenbedankt.android-apt' /* Dagger 2 */
+apply plugin: 'me.tatarka.retrolambda'
+apply plugin: "kotlin-android"
+apply plugin: 'kotlin-kapt'
+
+kapt {
+    generateStubs = true
+}
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.2"
+    compileSdkVersion sdk_version
+    buildToolsVersion build_tools_version
+
+    dataBinding {
+        enabled = true
+    }
 
     defaultConfig {
         applicationId "example.com.stackrx"
-        minSdkVersion 18
-        targetSdkVersion 23
+        minSdkVersion min_sdk_version
+        targetSdkVersion sdk_version
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
@@ -18,43 +29,28 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
     compile project(':stackrx-services')
+    kapt "com.android.databinding:compiler:$data_binding_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    compile "com.android.support:appcompat-v7:${android_support_version}"
+    compile "com.android.support:recyclerview-v7:${android_support_version}"
+    compile "com.android.support:support-annotations:${android_support_version}"
 
-    /* Android Libs */
-    compile "com.android.support:appcompat-v7:${androidSupportLibVersion}"
-    compile "com.android.support:support-v4:${androidSupportLibVersion}"
-    compile "com.android.support:recyclerview-v7:${androidSupportLibVersion}"
-    compile "com.android.support:cardview-v7:${androidSupportLibVersion}"
-    compile "com.android.support:support-annotations:${androidSupportLibVersion}"
+    compile "com.google.dagger:dagger:${dagger_version}"
+    kapt "com.google.dagger:dagger-compiler:${dagger_version}"
+    androidTestCompile "com.google.dagger:dagger:${dagger_version}"
+    kaptAndroidTest "com.google.dagger:dagger-compiler:${dagger_version}"
+    testCompile "com.google.dagger:dagger:${dagger_version}"
 
-    /* ButterKnife */
-    compile 'com.jakewharton:butterknife:7.0.1'
+    compile "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    compile "com.squareup.okhttp3:okhttp:$okhttp_version"
 
-    /* Dagger2 */
-    compile "com.google.dagger:dagger:${daggerVersion}"
-    apt "com.google.dagger:dagger-compiler:${daggerVersion}"
-    androidTestCompile "com.google.dagger:dagger:${daggerVersion}"
-    androidTestApt "com.google.dagger:dagger-compiler:${daggerVersion}"
-    testCompile "com.google.dagger:dagger:${daggerVersion}"
-    testApt "com.google.dagger:dagger-compiler:${daggerVersion}"
-
-    /* Testing Libs */
-    androidTestCompile 'com.google.dexmaker:dexmaker-mockito:1.2'
-    androidTestCompile 'com.google.dexmaker:dexmaker:1.2'
-    androidTestCompile 'org.mockito:mockito-core:1.10.19'
-    androidTestCompile 'com.android.support.test:runner:0.4.1'
-    androidTestCompile 'com.android.support.test:rules:0.4.1'
-    //androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.1'
-    //androidTestCompile 'com.android.support.test.espresso:espresso-web:2.2.1'
-    androidTestCompile "com.android.support:support-annotations:${androidSupportLibVersion}"
-    androidTestCompile ('com.android.support.test.espresso:espresso-contrib:2.2.1') {
-        exclude group: 'com.android.support', module: 'appcompat'
-        exclude group: 'com.android.support', module: 'support-v4'
-        exclude module: 'recyclerview-v7'
-    }
     testCompile 'junit:junit:4.12'
-    testCompile 'org.mockito:mockito-core:1.9.5'
 }

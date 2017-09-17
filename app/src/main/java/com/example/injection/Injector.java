@@ -11,29 +11,12 @@ import com.example.main.application.StackRXApp;
  */
 public class Injector {
 
-    //region LOCAL CONSTANTS -----------------------------------------------------------------------
-
     private static final Injector INJECTOR = new Injector();
-
-    //endregion
-
-    //region FIELDS --------------------------------------------------------------------------------
 
     private ApplicationComponent mApplicationComponent;
 
-    //endregion
-
-    //region CONSTRUCTOR ---------------------------------------------------------------------------
-
     private Injector() {
     }
-
-    //endregion
-
-    //region LOCAL METHODS -------------------------------------------------------------------------
-    //endregion
-
-    //region ACCESSORS -----------------------------------------------------------------------------
 
     public static Injector getInstance() {
         return INJECTOR;
@@ -51,13 +34,6 @@ public class Injector {
                 .build();
     }
 
-    //endregion
-
-    //region INNER CLASSES -------------------------------------------------------------------------
-    //endregion
-
-    //region CLASS METHODS -------------------------------------------------------------------------
-
     /**
      * Get the application scope Dagger2 component injector.
      *
@@ -66,7 +42,4 @@ public class Injector {
     public static ApplicationComponent applicationScope() {
         return INJECTOR.mApplicationComponent;
     }
-
-    //endregion
-
 }

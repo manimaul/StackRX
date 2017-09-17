@@ -11,127 +11,74 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
-import butterknife.ButterKnife;
 import example.com.stackrx.R;
+import example.com.stackrx.databinding.ItemQuestionBinding;
 import example.com.stackrx.services.questions.model.QuestionItem;
-import rx.Observable;
-import rx.subjects.PublishSubject;
+import io.reactivex.Observable;
+import io.reactivex.subjects.PublishSubject;
 
 public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    //region INJECTED CLASSES ----------------------------------------------------------------------
-    //endregion
-
-    //region INJECTED VIEWS ------------------------------------------------------------------------
-    //endregion
-
-    //region LOCAL CONSTANTS -----------------------------------------------------------------------
-    //endregion
-
-    //region FIELDS --------------------------------------------------------------------------------
-
     private List<QuestionItem> mItemList = new ArrayList<>();
-
     private PublishSubject<QuestionItem> mItemClickPublishSubject = PublishSubject.create();
-
-    //endregion
-
-
-    //region CONSTRUCTOR ---------------------------------------------------------------------------
-    //endregion
-
-    //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-
-        View v = inflater.inflate(R.layout.item_question, viewGroup, false);
-        return new ItemHolder(v);
+        return new ItemHolder(ItemQuestionBinding.inflate(inflater, viewGroup, false));
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int i) {
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder.mQuestionText.setText(mItemList.get(i).getTitle());
         final QuestionItem item = mItemList.get(i);
-        String answerBtnTxt = String.format(itemHolder.itemView.getContext().getString(R.string.item_question_view_answers),
-                item.getAnswerCount());
-        itemHolder.mViewAnswersButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mItemClickPublishSubject.onNext(item);
-            }
-        });
-        itemHolder.mViewAnswersButton.setText(answerBtnTxt);
+        itemHolder.bind(item, mItemClickPublishSubject);
     }
 
     @Override
     public void onViewRecycled(RecyclerView.ViewHolder viewHolder) {
         super.onViewRecycled(viewHolder);
         ItemHolder itemHolder = (ItemHolder) viewHolder;
-        itemHolder.mViewAnswersButton.setOnClickListener(null);
+        itemHolder.unBind();
     }
-
-    //endregion
-
-    //region WIDGET --------------------------------------------------------------------------------
 
     @Override
     public int getItemCount() {
         return mItemList.size();
     }
 
-    //endregion
-
-    //region LISTENERS -----------------------------------------------------------------------------
-    //endregion
-
-    //region EVENTS --------------------------------------------------------------------------------
-    //endregion
-
-    //region LOCAL METHODS -------------------------------------------------------------------------
-
     public Observable<QuestionItem> getQuestionItemSelected() {
-        return mItemClickPublishSubject.asObservable();
+        return mItemClickPublishSubject;
     }
-
-    //endregion
-
-
-    //region OBSERVERS -----------------------------------------------------------------------------
-    //endregion
-
-    //region ACCESSORS -----------------------------------------------------------------------------
 
     public void setItemList(@Nullable List<QuestionItem> itemList) {
         mItemList.clear();
         if (itemList != null) {
             mItemList.addAll(itemList);
         }
+        notifyDataSetChanged();
     }
-    //endregion
 
-    //region INNER CLASSES -------------------------------------------------------------------------
+    private static class ItemHolder extends RecyclerView.ViewHolder {
 
-    static class ItemHolder extends RecyclerView.ViewHolder {
+        private ItemQuestionBinding viewBinding;
 
-        @Bind(R.id.item_question_question_text_view)
-        TextView mQuestionText;
+        private ItemHolder(ItemQuestionBinding viewBinding) {
+            super(viewBinding.getRoot());
+            this.viewBinding = viewBinding;
+        }
 
-        @Bind(R.id.item_question_view_answers_button)
-        Button mViewAnswersButton;
+        void bind(QuestionItem questionItem, PublishSubject<QuestionItem> publishSubject) {
+            viewBinding.itemQuestionQuestionTextView.setText(questionItem.getTitle());
+            String answerBtnTxt = String.format(itemView.getContext().getString(R.string.item_question_view_answers),
+                questionItem.getAnswerCount());
+            viewBinding.itemQuestionViewAnswersButton.setText(answerBtnTxt);
+            viewBinding.itemQuestionViewAnswersButton.setOnClickListener(view -> publishSubject.onNext(questionItem));
+            viewBinding.executePendingBindings();
+        }
 
-        private ItemHolder(View itemView) {
-            super(itemView);
-            ButterKnife.bind(itemView);
+        void unBind() {
+            viewBinding.itemQuestionViewAnswersButton.setOnClickListener(null);
         }
     }
-    //endregion
-
-    //region CLASS METHODS -------------------------------------------------------------------------
-    //endregion
-
 }
