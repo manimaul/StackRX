@@ -38,7 +38,6 @@ public class QuestionsFragment extends Fragment {
 
     //endregion
 
-
     //region LOCAL CONSTANTS -----------------------------------------------------------------------
 
     public static final String TAG = QuestionsFragment.class.getSimpleName();
@@ -52,10 +51,8 @@ public class QuestionsFragment extends Fragment {
 
     //endregion
 
-
     //region CONSTRUCTOR ---------------------------------------------------------------------------
     //endregion
-
 
     //region LIFE CYCLE METHODS --------------------------------------------------------------------
 
@@ -94,7 +91,6 @@ public class QuestionsFragment extends Fragment {
 
     //endregion
 
-
     //region PRIVATE METHODS -----------------------------------------------------------------------
 
     private void setupAdapter() {
@@ -127,10 +123,8 @@ public class QuestionsFragment extends Fragment {
 
     //endregion
 
-
     //region ACCESSORS -----------------------------------------------------------------------------
     //endregion
-
 
     //region INNER CLASSES -------------------------------------------------------------------------
     //endregion
