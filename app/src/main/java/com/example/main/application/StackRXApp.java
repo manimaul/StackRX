@@ -9,6 +9,6 @@ public class StackRXApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        Injector.getInstance().buildApplicationComponent(this);
+        Injector.buildApplicationComponent(this);
     }
 }

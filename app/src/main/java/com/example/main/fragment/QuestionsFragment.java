@@ -63,7 +63,7 @@ public class QuestionsFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Injector.applicationScope().inject(this);
+        Injector.getApplicationScope().inject(this);
         mQuestionRecyclerViewAdapter = new QuestionRecyclerViewAdapter();
     }
 

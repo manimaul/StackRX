@@ -2,11 +2,9 @@ package com.example.main.adapter;
 
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,16 +67,16 @@ public class QuestionRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerVi
         }
 
         void bind(QuestionItem questionItem, PublishSubject<QuestionItem> publishSubject) {
-            viewBinding.itemQuestionQuestionTextView.setText(questionItem.getTitle());
+            viewBinding.questionTextView.setText(Html.fromHtml(questionItem.getTitle()));
             String answerBtnTxt = String.format(itemView.getContext().getString(R.string.item_question_view_answers),
                 questionItem.getAnswerCount());
-            viewBinding.itemQuestionViewAnswersButton.setText(answerBtnTxt);
-            viewBinding.itemQuestionViewAnswersButton.setOnClickListener(view -> publishSubject.onNext(questionItem));
+            viewBinding.viewAnswersButton.setText(answerBtnTxt);
+            viewBinding.viewAnswersButton.setOnClickListener(view -> publishSubject.onNext(questionItem));
             viewBinding.executePendingBindings();
         }
 
         void unBind() {
-            viewBinding.itemQuestionViewAnswersButton.setOnClickListener(null);
+            viewBinding.questionTextView.setOnClickListener(null);
         }
     }
 }
